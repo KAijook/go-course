@@ -4,8 +4,9 @@ import (
 	"fmt"
 )
 
-func swap(x, y string) (string, string) {
-	return y, x
+func swap(sum int) (x, y int) {
+
+	return
 }
 func main() {
 	a, b := swap("Hello", "World")
