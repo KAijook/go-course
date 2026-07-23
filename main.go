@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-var c bool
+var c = "Hello, World!"
 
 func main() {
 	fmt.Println(c)
