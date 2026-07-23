@@ -4,28 +4,35 @@ import "fmt"
 
 func main() {
 
-	if 7%2 == 0 {
-		fmt.Println("7 is even")
-	} else {
-		fmt.Println("7 is odd")
-	}
+	var a [5]int
+	fmt.Println("emp:", a)
 
-	if 8%4 == 0 {
-		fmt.Println("8 is divisible by 4")
-	}
+	a[4] = 100
+	fmt.Println("set:", a)
+	fmt.Println("get:", a[4])
 
-	if 8%2 == 0 || 7%2 == 0 {
-		fmt.Println("either 8 or 7 are even")
-	}
+	fmt.Println("len:", len(a))
 
-	num := 9
-	switch {
-	case num < 10:
-		fmt.Println("1 digit")
-	case num < 0:
-		fmt.Println("negative")
+	b := [4]int{1, 2, 3, 4, 5}
+	fmt.Println("dcl:", b)
 
-	default:
-		fmt.Println("2 digits or more")
+	b = [...]int{1, 2, 3, 4, 5}
+	fmt.Println("dcl:", b)
+
+	b = [...]int{100, 3: 400, 500}
+	fmt.Println("idx:", b)
+
+	var twoD [2][3]int
+	for i := range 2 {
+		for j := range 3 {
+			twoD[i][j] = i + j
+		}
 	}
+	fmt.Println("2d: ", twoD)
+
+	twoD = [2][3]int{
+		{1, 2, 3},
+		{1, 2, 3},
+	}
+	fmt.Println("2d: ", twoD)
 }
