@@ -1,38 +1,58 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"slices"
+)
 
 func main() {
 
-	var a [5]int
-	fmt.Println("emp:", a)
+	var s []string
+	fmt.Println("uninit:", s, s == nil, len(s) == 0)
 
-	a[4] = 100
-	fmt.Println("set:", a)
-	fmt.Println("get:", a[4])
+	s = make([]string, 3)
+	fmt.Println("emp:", s, "len:", len(s), "cap:", cap(s))
 
-	fmt.Println("len:", len(a))
+	s[0] = "a"
+	s[1] = "b"
+	s[2] = "c"
+	fmt.Println("set:", s)
+	fmt.Println("get:", s[2])
 
-	b := [4]int{1, 2, 3, 4, 5}
-	fmt.Println("dcl:", b)
+	fmt.Println("len:", len(s))
 
-	b = [...]int{1, 2, 3, 4, 5}
-	fmt.Println("dcl:", b)
+	s = append(s, "d")
+	s = append(s, "e", "f")
+	fmt.Println("apd:", s)
 
-	b = [...]int{100, 3: 400, 500}
-	fmt.Println("idx:", b)
+	c := make([]string, len(s))
+	copy(c, s)
+	fmt.Println("cpy:", c)
 
-	var twoD [2][3]int
-	for i := range 2 {
-		for j := range 3 {
+	l := s[2:5]
+	fmt.Println("sl1:", l)
+
+	l = s[:5]
+	fmt.Println("sl2:", l)
+
+	l = s[2:]
+	fmt.Println("sl3:", l)
+
+	t := []string{"g", "h", "i"}
+	fmt.Println("dcl:", t)
+
+	t2 := []string{"g", "h", "i"}
+	if slices.Equal(t, t2) {
+		fmt.Println("t == t2")
+	}
+
+	twoD := make([][]int, 3)
+	for i := range 3 {
+		innerLen := i + 1
+		twoD[i] = make([]int, innerLen)
+		for j := range innerLen {
 			twoD[i][j] = i + j
 		}
-	}
-	fmt.Println("2d: ", twoD)
-
-	twoD = [2][3]int{
-		{1, 2, 3},
-		{1, 2, 3},
 	}
 	fmt.Println("2d: ", twoD)
 }
