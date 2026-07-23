@@ -18,11 +18,14 @@ func main() {
 		fmt.Println("either 8 or 7 are even")
 	}
 
-	if num := 9; num < 0 {
-		fmt.Println(num, "is negative")
-	} else if num < 10 {
-		fmt.Println(num, "has 1 digit")
-	} else {
-		fmt.Println(num, "has multiple digits")
+	num := 9
+	switch {
+	case num < 10:
+		fmt.Println("1 digit")
+	case num < 0:
+		fmt.Println("negative")
+
+	default:
+		fmt.Println("2 digits or more")
 	}
 }
