@@ -1,14 +1,9 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
-func swap(sum int) (x, y int) {
+var c bool
 
-	return
-}
 func main() {
-	a, b := swap("Hello", "World")
-	fmt.Println(a, b)
+	fmt.Println(c)
 }
