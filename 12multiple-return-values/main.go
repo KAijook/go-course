@@ -2,16 +2,17 @@ package main
 
 import "fmt"
 
-func vals() (int, int) {
-	return 3, 7
+func vals() (int, int, string) {
+	return 3, 7, "hello"
 }
 
 func main() {
 
-	a, b := vals()
+	a, b, c := vals()
 	fmt.Println(a)
+	fmt.Println(c)
 	fmt.Println(b)
 
-	c, _ := vals()
+	_, _, c = vals()
 	fmt.Println(c)
 }

@@ -23,6 +23,7 @@ func main() {
 	fmt.Println("pointer:", &i)
 
 	p := new(42)
+	fmt.Println(p)
 	fmt.Println("value at *p:", *p)
 	zeroptr(p)
 	fmt.Println("value at *p:", *p)

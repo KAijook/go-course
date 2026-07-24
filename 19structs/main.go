@@ -2,45 +2,40 @@ package main
 
 import "fmt"
 
-type person struct {
-	name string
-	age  int
+type BankAccount struct {
+	Owner   *string
+	Balance float64
+	like    map[string]string
 }
 
-func newPerson(name string) *person {
+func checkBankAccount(account BankAccount) {
+	fmt.Println("Owner:", *account.Owner)
+	fmt.Println("Balance:", account.Balance)
+	fmt.Println("Like:", account.like)
+}
 
-	p := person{name: name}
-	p.age = 42
-	return &p
+func (account *BankAccount) addFunds(amount float64) {
+	account.Balance += amount
+
 }
 
 func main() {
+	name := "Bob"
+	newMap := make(map[string]string)
+	newMap["favoriteColor"] = "blue"
+	newMap["favoriteFood"] = "pizza"
 
-	fmt.Println(person{"Bob", 20})
+	account := BankAccount{Owner: &name, Balance: 100.0, like: newMap}
+	checkBankAccount(account)
+	account.addFunds(50.0)
+	checkBankAccount(account)
 
-	fmt.Println(person{name: "Alice", age: 30})
+	var emptyAcc *BankAccount
+	emptyAcc = new(BankAccount)
+	emptyAcc.Owner = &name
+	emptyAcc.Balance = 200.0
+	emptyAcc.like = make(map[string]string)
+	emptyAcc.addFunds(100.0)
+	checkBankAccount(*emptyAcc)
 
-	fmt.Println(person{name: "Fred"})
-
-	fmt.Println(&person{name: "Ann", age: 40})
-
-	fmt.Println(newPerson("Jon"))
-
-	s := person{name: "Sean", age: 50}
-	fmt.Println(s.name)
-
-	sp := &s
-	fmt.Println(sp.age)
-
-	sp.age = 51
-	fmt.Println(sp.age)
-
-	dog := struct {
-		name   string
-		isGood bool
-	}{
-		"Rex",
-		true,
-	}
-	fmt.Println(dog)
 }

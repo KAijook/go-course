@@ -2,25 +2,29 @@ package main
 
 import "fmt"
 
-type rect struct {
-	width, height int
+type bird struct {
+	name string
+	age  int
 }
 
-func (r *rect) area() int {
-	return r.width * r.height
+func (b bird) fly() {
+	fmt.Println(b.name, "is flying")
+}
+func (b bird) sing() {
+	fmt.Println(b.name, "is singing")
 }
 
-func (r rect) perim() int {
-	return 2*r.width + 2*r.height
+type dog struct {
+	name string
+	age  int
 }
 
 func main() {
-	r := rect{width: 10, height: 5}
+	bird1 := bird{name: "Sparrow", age: 2}
+	bird1.fly()
+	bird1.sing()
 
-	fmt.Println("area: ", r.area())
-	fmt.Println("perim:", r.perim())
+	dog1 := dog{name: "Buddy", age: 3}
+	fmt.Println(dog1.name, "is barking")
 
-	rp := &r
-	fmt.Println("area: ", rp.area())
-	fmt.Println("perim:", rp.perim())
 }

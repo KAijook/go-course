@@ -2,22 +2,18 @@ package main
 
 import "fmt"
 
-func intSeq() func() int {
-	i := 0
-	return func() int {
-		i++
-		return i
+func multiple(factor int) func(int) int {
+	return func(x int) int {
+		return factor * x
 	}
 }
 
 func main() {
 
-	nextInt := intSeq()
+	double := multiple(2)
 
-	fmt.Println(nextInt())
-	fmt.Println(nextInt())
-	fmt.Println(nextInt())
+	fmt.Println(double(3))
 
-	newInts := intSeq()
-	fmt.Println(newInts())
+	newInts := multiple(3)
+	fmt.Println(newInts(4))
 }

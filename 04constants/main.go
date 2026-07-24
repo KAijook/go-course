@@ -6,7 +6,7 @@ const Pi = 3.14
 
 func main() {
 	v := 3.142
-	fmt.Printf("v is of type %T\n", v)
+	fmt.Printf("v is of type %\n", v)
 
 	const World = "世界"
 	fmt.Println("Hello", World)

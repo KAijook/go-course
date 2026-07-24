@@ -4,29 +4,28 @@ import "fmt"
 
 func main() {
 
-	nums := []int{2, 3, 4}
-	sum := 0
-	for _, num := range nums {
-		sum += num
+	s := map[string]int{
+		"first":  1,
+		"second": 2,
 	}
-	fmt.Println("sum:", sum)
-
-	for i, num := range nums {
-		if num == 3 {
-			fmt.Println("index:", i)
-		}
+	for key, value := range s {
+		fmt.Println(key, value)
+	}
+	for key := range s {
+		fmt.Println(s[key])
 	}
 
-	kvs := map[string]string{"a": "apple", "b": "banana"}
-	for k, v := range kvs {
-		fmt.Printf("%s -> %s\n", k, v)
+	array := [3]int{1, 2, 3}
+	for index, value := range array {
+		fmt.Println(index, value)
 	}
 
-	for k := range kvs {
-		fmt.Println("key:", k)
+	slice := []int{4, 5, 6}
+	for _, value := range slice {
+		fmt.Println(value)
 	}
 
-	for i, c := range "go" {
-		fmt.Println(i, c)
+	for a, b := range "go" {
+		fmt.Println(a, b)
 	}
 }

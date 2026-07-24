@@ -6,29 +6,31 @@ import (
 )
 
 func main() {
-	m := make(map[string]int)
-	m["k1"] = 7
-	m["k2"] = 13
-	fmt.Println("map:", m)
+	a := make(map[string]int)
+	a["one"] = 1
+	a["two"] = 2
+	fmt.Println(a)
 
-	v1 := m["k1"]
-	fmt.Println("v1:", v1)
+	fmt.Println(a["one"])
 
-	v3 := m["k3"]
-	fmt.Println("v3:", v3)
-	fmt.Println("len:", len(m))
+	delete(a, "one")
+	fmt.Println(a)
 
-	delete(m, "k2")
-	fmt.Println("map:", m)
+	a["three"] = 3
+	clear(a)
+	fmt.Println(a)
 
-	clear(m)
-	fmt.Println("map:", m)
+	b := map[string]int{
+		"four": 4,
+		"five": 5,
+	}
+	fmt.Println(b)
 
-	n := map[string]int{"foo": 1, "bar": 2}
-	fmt.Println("map:", n)
-
-	n2 := map[string]int{"foo": 1, "bar": 2}
-	if maps.Equal(n, n2) {
-		fmt.Println("n == n2")
+	c := map[string]int{
+		"four": 4,
+		"five": 5,
+	}
+	if maps.Equal(b, c) {
+		fmt.Println("b and c are equal")
 	}
 }

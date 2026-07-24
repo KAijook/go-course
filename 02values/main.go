@@ -1,4 +1,4 @@
-package main
+package values
 
 import (
 	"fmt"
@@ -14,5 +14,4 @@ func main() {
 
 	a, b := swap("Hello", "World")
 	fmt.Println(a, b)
-
 }

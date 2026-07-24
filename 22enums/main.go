@@ -2,43 +2,41 @@ package main
 
 import "fmt"
 
-type ServerState int
+type severState int
 
 const (
-	StateIdle ServerState = iota
-	StateConnected
-	StateError
-	StateRetrying
+	START severState = iota
+	RUNNING
+	STOPPED
 )
 
-var stateName = map[ServerState]string{
-	StateIdle:      "idle",
-	StateConnected: "connected",
-	StateError:     "error",
-	StateRetrying:  "retrying",
+var stateName = map[severState]string{
+	START:   "start",
+	RUNNING: "running",
+	STOPPED: "stopped",
 }
 
-func (ss ServerState) String() string {
+func (ss severState) String() string {
 	return stateName[ss]
 }
 
 func main() {
-	ns := transition(StateIdle)
+	ns := transition(START)
 	fmt.Println(ns)
-
-	ns2 := transition(ns)
-	fmt.Println(ns2)
+	ns = transition(RUNNING)
+	fmt.Println(ns)
+	ns = transition(STOPPED)
+	fmt.Println(ns)
 }
 
-func transition(s ServerState) ServerState {
+func transition(s severState) severState {
 	switch s {
-	case StateIdle:
-		return StateConnected
-	case StateConnected, StateRetrying:
-
-		return StateIdle
-	case StateError:
-		return StateError
+	case START:
+		return RUNNING
+	case RUNNING:
+		return STOPPED
+	case STOPPED:
+		return START
 	default:
 		panic(fmt.Errorf("unknown state: %s", s))
 	}

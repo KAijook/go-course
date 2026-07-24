@@ -1,55 +1,46 @@
 package main
 
-import (
-	"fmt"
-	"math"
-)
+import "fmt"
 
-type geometry interface {
-	area() float64
-	perim() float64
+type Dog struct {
 }
 
-type rect struct {
-	width, height float64
+func (d Dog) Bark() {
+	fmt.Println("Woof!")
 }
-type circle struct {
-	radius float64
-}
-
-func (r rect) area() float64 {
-	return r.width * r.height
-}
-func (r rect) perim() float64 {
-	return 2*r.width + 2*r.height
+func (d Dog) Sound() {
+	d.Bark()
 }
 
-func (c circle) area() float64 {
-	return math.Pi * c.radius * c.radius
+type Cat struct{}
+
+func (c Cat) Meow() {
+	fmt.Println("Meow!")
 }
-func (c circle) perim() float64 {
-	return 2 * math.Pi * c.radius
+func (c Cat) Sound() {
+	c.Meow()
 }
 
-func measure(g geometry) {
-	fmt.Println(g)
-	fmt.Println(g.area())
-	fmt.Println(g.perim())
+type Animal interface {
+	Sound()
 }
 
-func detectCircle(g geometry) {
-	if c, ok := g.(circle); ok {
-		fmt.Println("circle with radius", c.radius)
-	}
+func isDog(a Animal) bool {
+	_, ok := a.(Dog)
+	return ok
 }
 
 func main() {
-	r := rect{width: 3, height: 4}
-	c := circle{radius: 5}
-
-	measure(r)
-	measure(c)
-
-	detectCircle(r)
-	detectCircle(c)
+	dog := Dog{}
+	cat := Cat{}
+	dog.Sound()
+	cat.Sound()
+	if isDog(dog) {
+		fmt.Println("It's a dog!")
+	}
+	if isDog(cat) {
+		fmt.Println("It's a dog!")
+	} else {
+		fmt.Println("It's not a dog!")
+	}
 }

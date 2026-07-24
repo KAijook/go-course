@@ -2,18 +2,14 @@ package main
 
 import "fmt"
 
-func plus(x, y int) int {
+func fusion(x, y string) string {
 	return x + y
 }
-
-func plusPlus(a, b, c int) int {
-	return a + b + c
+func triple(x, y, z int) int {
+	return x + y + z
 }
 
 func main() {
-	res := plus(1, 2)
-	fmt.Println("1+2 =", res)
-
-	res = plusPlus(1, 2, 3)
-	fmt.Println("1+2+3 =", res)
+	fmt.Println(fusion("go", "ku"))
+	fmt.Println(triple(1, 2, 3))
 }
