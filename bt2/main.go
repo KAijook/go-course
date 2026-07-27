@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"sync"
+	"sync/atomic"
+	"time"
 )
 
 type Ticket struct {
@@ -10,7 +12,7 @@ type Ticket struct {
 	amount int
 }
 
-func (t *Ticket) Buy(amount int, status chan bool) bool {
+func (t *Ticket) Buy(amount int) bool {
 	t.mu.Lock()
 	defer t.mu.Unlock()
 	if t.amount >= amount {
@@ -18,7 +20,8 @@ func (t *Ticket) Buy(amount int, status chan bool) bool {
 		return true
 	} else {
 		fmt.Println("Hết vé")
-		status <- false
+
+		time.Sleep(300 * time.Millisecond)
 		return false
 	}
 }
@@ -27,7 +30,9 @@ func main() {
 	worker := 3
 	customerAmount := make(chan int, 50)
 	tickets := 10
-	status := make(chan bool, 1)
+	var status atomic.Bool
+	status.Store(true)
+
 	wg := sync.WaitGroup{}
 
 	for i := range 50 {
@@ -45,7 +50,7 @@ func main() {
 
 			for customer := range customerAmount {
 
-				if ticket.Buy(1, status) {
+				if ticket.Buy(1) {
 					fmt.Printf("worker %d đặt vé %d\n", i, customer)
 				} else {
 

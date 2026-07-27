@@ -24,6 +24,8 @@ func (w *Wallet) Withdraw(amount int, transaction chan int) {
 		w.balance -= amount
 		transaction <- w.balance
 	} else {
+		leftBalance := w.balance
+		transaction <- leftBalance
 		fmt.Println("Số dư không đủ")
 	}
 }
