@@ -15,13 +15,13 @@ func main() {
 		for i := range 30 {
 			sent := false
 			for !sent {
-				select {
-				case orderQueue <- i:
-					fmt.Println("Gửi đơn thành công")
+				if len(orderQueue) < cap(orderQueue) {
+					orderQueue <- i
+					fmt.Println("Đơn hàng đã được gửi")
 					sent = true
-				default:
+				} else {
+					time.Sleep(300 * time.Millisecond)
 					fmt.Println("Đang đầy hàng chờ")
-					time.Sleep(100 * time.Millisecond)
 				}
 			}
 		}
@@ -33,7 +33,7 @@ func main() {
 
 			for order := range orderQueue {
 				time.Sleep(300 * time.Millisecond)
-				<-orderQueue
+
 				fmt.Printf("Đầu bếp đã hoàn thành đơn %d\n", order)
 			}
 		})
