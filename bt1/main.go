@@ -23,6 +23,8 @@ func (w *Wallet) Withdraw(amount int, transaction chan int) {
 	if w.balance >= amount {
 		w.balance -= amount
 		transaction <- w.balance
+	} else {
+		fmt.Println("Số dư không đủ")
 	}
 }
 
@@ -32,7 +34,7 @@ func main() {
 	transaction := make(chan int, 1)
 
 	wallet := &Wallet{
-		balance: 1000000,
+		balance: 1000,
 	}
 	DepositWorker := 5
 	WithdrawWorker := 3
@@ -41,7 +43,7 @@ func main() {
 		wg.Go(func() {
 
 			wallet.Deposit(500000, transaction)
-
+			fmt.Printf("Current Balance: %d\n", <-transaction)
 		})
 
 	}
@@ -49,15 +51,9 @@ func main() {
 	for i := 0; i < DepositWorker; i++ {
 		wg.Go(func() {
 			wallet.Withdraw(200000, transaction)
+			fmt.Printf("Current Balance: %d\n", <-transaction)
 		})
 	}
-
-	wg.Go(func() {
-		for i := 0; i < DepositWorker+WithdrawWorker; i++ {
-			balance := <-transaction
-			fmt.Println("Current Balance:", balance)
-		}
-	})
 
 	wg.Wait()
 	close(transaction)

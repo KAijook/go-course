@@ -10,7 +10,7 @@ type Ticket struct {
 	amount int
 }
 
-func (t *Ticket) Buy(amount int) bool {
+func (t *Ticket) Buy(amount int, status chan bool) bool {
 	t.mu.Lock()
 	defer t.mu.Unlock()
 	if t.amount >= amount {
@@ -18,6 +18,7 @@ func (t *Ticket) Buy(amount int) bool {
 		return true
 	} else {
 		fmt.Println("Hết vé")
+		status <- false
 		return false
 	}
 }
@@ -26,7 +27,7 @@ func main() {
 	worker := 3
 	customerAmount := make(chan int, 50)
 	tickets := 10
-
+	status := make(chan bool, 1)
 	wg := sync.WaitGroup{}
 
 	for i := range 50 {
@@ -44,7 +45,7 @@ func main() {
 
 			for customer := range customerAmount {
 
-				if ticket.Buy(1) {
+				if ticket.Buy(1, status) {
 					fmt.Printf("worker %d đặt vé %d\n", i, customer)
 				} else {
 
